@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Security & Data Protection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Syne:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #050d1a;
+      --bg2: #0a1628;
+      --card: #0d1f36;
+      --accent: #00e5ff;
+      --accent2: #0080ff;
+      --accent3: #7c3aed;
+      --danger: #ff4444;
+      --success: #00c896;
+      --text: #e0f0ff;
+      --muted: #7ba3c8;
+      --border: rgba(0,229,255,0.15);
+      --glow: 0 0 18px rgba(0,229,255,0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ─────────────────────────────────── */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%,100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .shield-icon {
+      width: 90px; height: 90px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      animation: shieldFloat 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(0,229,255,0.5));
+    }
+
+    @keyframes shieldFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    header h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #00e5ff, #0080ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative; z-index: 1;
+      line-height: 1.2;
+    }
+
+    header .subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      position: relative; z-index: 1;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    /* ── SECTIONS ──────────────────────────────── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    h2 span {
+      color: var(--accent);
+    }
+
+    p {
+      color: #a8c8e8;
+      line-height: 1.85;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── CARD GRID ─────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,229,255,0.4);
+      box-shadow: var(--glow);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* ── RISK CARDS ───────────────────────────── */
+    .risk-card { --stripe: var(--danger); }
+    .risk-card::before { background: linear-gradient(90deg, var(--danger), #ff8800); }
+    .risk-card .card-icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 8px;
+      background: rgba(255,68,68,0.12);
+      margin-bottom: 0.8rem;
+    }
+    .risk-card h3 { color: #ff8888; }
+
+    /* ── STRATEGY CARDS ───────────────────────── */
+    .strat-card::before { background: linear-gradient(90deg, var(--success), #00e5ff); }
+    .strat-card h3 { color: var(--success); }
+
+    /* ── TIMELINE ─────────────────────────────── */
+    .timeline {
+      position: relative;
+      margin-top: 2.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent3), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 1.2rem 0 1.2rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 1.6rem;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(0,229,255,0.5);
+    }
+
+    .timeline-year {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── STAT BAR ─────────────────────────────── */
+    .stat-bar-wrap {
+      margin: 2rem 0;
+    }
+
+    .stat-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .stat-label span:last-child {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transform-origin: left;
+      animation: barGrow 1.5s ease forwards;
+      transform: scaleX(0);
+    }
+
+    @keyframes barGrow { to { transform: scaleX(1); } }
+
+    /* ── HIGHLIGHT BOX ────────────────────────── */
+    .highlight-box {
+      background: rgba(0,229,255,0.04);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box p {
+      color: #b0d8f0;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* ── DIVIDER ─────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ── CONCLUSION ───────────────────────────── */
+    .conclusion-section {
+      background: linear-gradient(135deg, rgba(0,128,255,0.06), rgba(124,58,237,0.06));
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .conclusion-section h2 { color: var(--text); }
+
+    .conclusion-section p {
+      max-width: 700px;
+      margin: 0 auto 1rem;
+      font-size: 1rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+
+    footer strong {
+      color: var(--accent);
+    }
+
+    /* ── FADE-IN ──────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(5,13,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .nav-brand {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── BADGE ───────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      font-family: 'Orbitron', monospace;
+      border: 1px solid;
+    }
+
+    .badge-danger { color: #ff8888; border-color: rgba(255,68,68,0.4); background: rgba(255,68,68,0.08); }
+    .badge-success { color: var(--success); border-color: rgba(0,200,150,0.4); background: rgba(0,200,150,0.08); }
+    .badge-info { color: var(--accent); border-color: rgba(0,229,255,0.4); background: rgba(0,229,255,0.08); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-brand">🛡 CYBER SEC</span>
+    <div class="nav-links">
+      <a href="#intro">Intro</a>
+      <a href="#importance">Importance</a>
+      <a href="#risks">Risks</a>
+      <a href="#strategies">Strategies</a>
+      <a href="#evolution">Evolution</a>
+      <a href="#conclusion">Conclusion</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <div class="grid-bg"></div>
+    <svg class="shield-icon" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M45 8 L78 20 L78 48 C78 65 63 78 45 84 C27 78 12 65 12 48 L12 20 Z" fill="rgba(0,229,255,0.1)" stroke="#00e5ff" stroke-width="2"/>
+      <path d="M45 18 L68 28 L68 48 C68 61 58 71 45 76 C32 71 22 61 22 48 L22 28 Z" fill="rgba(0,128,255,0.15)" stroke="#0080ff" stroke-width="1.5"/>
+      <path d="M36 45 L42 51 L56 37" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>Cyber Security &<br/>Data Protection</h1>
+    <p class="subtitle">Securing the Digital Future</p>
+    <div class="scroll-hint">SCROLL</div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="divider"></div>
+  <section id="intro" class="fade-in">
+    <div class="section-label">01 / Introduction</div>
+    <h2>What is <span>Cyber Security?</span></h2>
+    <p>Cyber Security is the practice of protecting computer systems, networks, programs, and data from digital attacks, unauthorized access, damage, or theft. It is a multi-layered discipline that encompasses both technology and human behavior.</p>
+    <p>Data Protection refers to the policies, procedures, and technologies used to safeguard personal and organizational data from corruption, compromise, or loss. Together, cyber security and data protection form the backbone of trust in the digital economy.</p>
+
+    <div class="highlight-box">
+      <p>💡 In 2024, the global average cost of a data breach reached <strong style="color:var(--accent)">$4.88 million</strong> — the highest ever recorded. Cybercrime is projected to cost the world <strong style="color:var(--accent)">$10.5 trillion annually</strong> by 2025.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">🔒</span>
+        <h3>Confidentiality</h3>
+        <p>Ensuring that information is accessible only to those authorized to access it. Prevents unauthorized disclosure.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">✅</span>
+        <h3>Integrity</h3>
+        <p>Maintaining the accuracy and completeness of data. Prevents unauthorized modification or deletion.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚡</span>
+        <h3>Availability</h3>
+        <p>Ensuring that systems and data are accessible when needed by authorized users. Prevents disruption.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPORTANCE -->
+  <div class="divider"></div>
+  <section id="importance" class="fade-in">
+    <div class="section-label">02 / Importance</div>
+    <h2>Why Does <span>Cyber Security</span> Matter?</h2>
+    <p>As our world becomes increasingly digital, the importance of cyber security grows exponentially. Every device connected to the internet is a potential entry point for attackers. From banks to hospitals, governments to individuals — everyone is a potential target.</p>
+
+    <div class="stat-bar-wrap">
+      <div class="stat-item">
+        <div class="stat-label"><span>Financial Sector Attacks</span><span>94%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:94%; background: linear-gradient(90deg, #00e5ff, #0080ff);"></div></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><span>Healthcare Data Breaches</span><span>87%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:87%; background: linear-gradient(90deg, #7c3aed, #0080ff);"></div></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><span>Government Targeted Attacks</span><span>78%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:78%; background: linear-gradient(90deg, #ff4444, #ff8800);"></div></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label"><span>Small Business Vulnerabilities</span><span>65%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:65%; background: linear-gradient(90deg, #00c896, #00e5ff);"></div></div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">🏦</span>
+        <h3>Financial Security</h3>
+        <p>Protects banking systems, payment gateways, and digital wallets from fraud, theft, and ransomware attacks.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏥</span>
+        <h3>Healthcare Safety</h3>
+        <p>Safeguards patient records, medical devices, and hospital systems where breaches can be life-threatening.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏛️</span>
+        <h3>National Security</h3>
+        <p>Protects critical infrastructure, defense systems, and government databases from state-sponsored attacks.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">👤</span>
+        <h3>Personal Privacy</h3>
+        <p>Protects individuals from identity theft, stalking, doxxing, and unauthorized surveillance.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏢</span>
+        <h3>Business Continuity</h3>
+        <p>Prevents downtime, data loss, and reputational damage that can destroy businesses overnight.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚖️</span>
+        <h3>Legal Compliance</h3>
+        <p>Meets requirements of GDPR, HIPAA, IT Act 2000 and other data protection laws to avoid heavy penalties.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <div class="divider"></div>
+  <section id="risks" class="fade-in">
+    <div class="section-label">03 / Risks</div>
+    <h2>Major <span>Cyber Threats</span> & Risks</h2>
+    <p>Cyber threats are constantly evolving. Understanding the landscape of risks is the first step toward building effective defenses. Here are the most critical threats organizations and individuals face today.</p>
+
+    <div class="card-grid">
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">HIGH RISK</span>
+        <h3>🦠 Malware & Ransomware</h3>
+        <p>Malicious software that encrypts your files and demands payment. In 2023, ransomware attacks increased by 74%, targeting hospitals, schools, and government bodies.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">HIGH RISK</span>
+        <h3>🎣 Phishing Attacks</h3>
+        <p>Fraudulent emails and messages trick users into revealing passwords and financial data. 3.4 billion phishing emails are sent every day worldwide.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">HIGH RISK</span>
+        <h3>🔓 Data Breaches</h3>
+        <p>Unauthorized access to confidential databases. Major breaches have exposed billions of records containing names, SSNs, credit card info, and medical data.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">CRITICAL</span>
+        <h3>🌊 DDoS Attacks</h3>
+        <p>Distributed Denial-of-Service attacks flood servers with traffic, crashing websites and online services. Can take entire businesses offline for days.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">HIGH RISK</span>
+        <h3>🕵️ Social Engineering</h3>
+        <p>Psychological manipulation of individuals into performing actions or divulging confidential information. The human element is the weakest link in security.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">EMERGING</span>
+        <h3>🤖 AI-Powered Attacks</h3>
+        <p>Attackers now use AI to generate deepfakes, craft personalized phishing emails, and automate vulnerability scanning at unprecedented speed and scale.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">MEDIUM</span>
+        <h3>🔌 Insider Threats</h3>
+        <p>Employees or contractors who misuse access to steal data or sabotage systems — either maliciously or accidentally. Accounts for 34% of all breaches.</p>
+      </div>
+      <div class="card risk-card">
+        <span class="badge badge-danger" style="margin-bottom:0.8rem;">HIGH RISK</span>
+        <h3>💻 Zero-Day Exploits</h3>
+        <p>Attacks that target previously unknown software vulnerabilities before developers can create and deploy patches. Highly dangerous and difficult to defend against.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRATEGIES -->
+  <div class="divider"></div>
+  <section id="strategies" class="fade-in">
+    <div class="section-label">04 / Strategies for Security</div>
+    <h2>Key <span>Security Strategies</span></h2>
+    <p>Effective cyber security requires a layered, proactive strategy. No single solution provides complete protection — defense-in-depth combines multiple tools, policies, and practices to minimize risk.</p>
+
+    <div class="card-grid">
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">TECHNICAL</span>
+        <h3>🔐 Multi-Factor Authentication (MFA)</h3>
+        <p>Requires users to verify identity through two or more factors (password + OTP + biometric). Blocks 99.9% of automated attacks.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">TECHNICAL</span>
+        <h3>🔏 End-to-End Encryption</h3>
+        <p>Encrypts data so only the sender and intended recipient can read it. Protects data in transit and at rest using AES-256 and TLS 1.3 standards.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">NETWORK</span>
+        <h3>🧱 Firewalls & Intrusion Detection</h3>
+        <p>Next-gen firewalls (NGFW) and IDS/IPS systems monitor and control network traffic, blocking suspicious activity in real time.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">FRAMEWORK</span>
+        <h3>🏗️ Zero Trust Architecture</h3>
+        <p>"Never trust, always verify" — every user and device must be authenticated every time, regardless of location. The modern security model for cloud environments.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">PROCESS</span>
+        <h3>💾 Regular Data Backups</h3>
+        <p>Follow the 3-2-1 rule: 3 copies of data, on 2 different media types, with 1 offsite backup. Critical for ransomware recovery.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">HUMAN</span>
+        <h3>🎓 Security Awareness Training</h3>
+        <p>Regular training programs to help employees recognize phishing, social engineering, and safe data handling. 95% of breaches involve human error.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">PROCESS</span>
+        <h3>🔍 Penetration Testing</h3>
+        <p>Ethical hackers simulate attacks to find vulnerabilities before criminals do. Should be conducted quarterly or after major system changes.</p>
+      </div>
+      <div class="card strat-card">
+        <span class="badge badge-success" style="margin-bottom:0.8rem;">COMPLIANCE</span>
+        <h3>📋 Security Policies & Compliance</h3>
+        <p>Clear Incident Response Plans (IRP), GDPR compliance, ISO 27001 certification, and regular security audits create organizational resilience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVOLUTION -->
+  <div class="divider"></div>
+  <section id="evolution" class="fade-in">
+    <div class="section-label">05 / Evolution</div>
+    <h2>Evolution of <span>Cyber Security</span></h2>
+    <p>Cyber security has evolved from simple antivirus programs to a complex, multi-billion dollar global industry. Each decade brought new threats — and new defenses.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1970s – 1980s</div>
+        <h3>The Dawn of Computer Viruses</h3>
+        <p>The Creeper virus (1971) was the world's first self-replicating program. The Morris Worm (1988) infected ~6,000 UNIX machines, highlighting network vulnerabilities for the first time. Early antivirus software emerged in response.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1990s</div>
+        <h3>Rise of the Internet & Hackers</h3>
+        <p>The World Wide Web explosion created massive new attack surfaces. Viruses spread via email and floppy disks. Firewalls and SSL encryption were developed. The term "cyber security" entered mainstream use. Notable: ILOVEYOU worm (2000).</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2000s</div>
+        <h3>Organized Cybercrime & State Actors</h3>
+        <p>Cybercrime became organized and financially motivated. Botnets, spyware, and phishing became widespread. Nation-state attacks emerged (e.g., Stuxnet targeting Iran's nuclear program in 2010). Governments began forming cyber commands.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2010s</div>
+        <h3>Big Data Breaches & Cloud Security</h3>
+        <p>Massive breaches hit Yahoo (3B accounts), Equifax (147M records), and Target. Ransomware became epidemic (WannaCry 2017). Cloud adoption drove demand for new security frameworks. GDPR enacted in 2018.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2020s</div>
+        <h3>AI-Driven Threats & Zero Trust Era</h3>
+        <p>COVID-19 accelerated remote work, expanding attack surfaces dramatically. AI-powered cyberattacks and deepfakes emerged. Zero Trust Architecture became the industry standard. Quantum-safe cryptography is now in active development for the next era.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
+  <div class="divider"></div>
+  <section id="conclusion" class="fade-in" style="padding: 3rem 2rem;">
+    <div class="conclusion-section">
+      <div class="section-label" style="margin-bottom:0.5rem;">06 / Conclusion</div>
+      <h2>The <span>Secure Future</span> is Built Today</h2>
+      <p>Cyber security is no longer optional — it is a fundamental requirement of modern life. As digital technology penetrates every aspect of society, from healthcare to finance to national infrastructure, the need to protect data and systems has never been more critical.</p>
+      <p>The battle between attackers and defenders is constant and evolving. However, with the right combination of technology, policy, training, and awareness, we can build a resilient digital world where innovation thrives safely.</p>
+      <p>Remember: <strong style="color:var(--accent)">Security is not a product — it's a continuous process.</strong> Every individual, organization, and government has a role to play in securing the digital future.</p>
+      <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <span class="badge badge-info">🔒 STAY SECURE</span>
+        <span class="badge badge-success">🛡️ STAY VIGILANT</span>
+        <span class="badge badge-danger">⚠️ STAY INFORMED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Cyber Security & Data Protection</strong></p>
+    <p>Sourav Das · D232430792 · Babasaheb Ambedkar Government Polytechnic · 6th Semester· 3rd Year · Diploma in Computer Science and Technology</p>
+    <p style="margin-top:1rem; font-size:0.75rem; color:#4a6a8a;">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; VS Code</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Animate bars when visible
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+            bar.style.animation = 'none';
+            bar.offsetHeight;
+            bar.style.animation = 'barGrow 1.5s ease forwards';
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.stat-bar-wrap').forEach(el => barObserver.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
